@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cjyly2pck52gm" path="res://art/Player.png" id="2_jkdft"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ymx28"]
-size = Vector2(6, 6)
+size = Vector2(8, 6)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wq64q"]
 animations = [{
@@ -20,6 +20,9 @@ animations = [{
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 16
 script = ExtResource("1_rl817")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
 
 [node name="MovementCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 13)
