@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dtukb6dxa28vl"]
+[gd_scene load_steps=20 format=3 uid="uid://dtukb6dxa28vl"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_rl817"]
 [ext_resource type="Texture2D" uid="uid://cjyly2pck52gm" path="res://art/Player.png" id="2_jkdft"]
@@ -131,8 +131,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrinl"]
-
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 16
 script = ExtResource("1_rl817")
@@ -146,15 +144,12 @@ shape = SubResource("RectangleShape2D_ymx28")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wq64q")
-animation = &"walk_up"
-autoplay = "walk_down"
+animation = &"walk_down"
 script = ExtResource("3_atui6")
 
-[node name="InteractionArea" type="Area2D" parent="."]
-position = Vector2(8, 0)
-collision_layer = 8
+[node name="Interaction" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(0, 16)
 collision_mask = 32
+collide_with_areas = true
 script = ExtResource("3_lwads")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-shape = SubResource("RectangleShape2D_vrinl")

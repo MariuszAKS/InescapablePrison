@@ -1,11 +1,17 @@
 using Godot;
-using System;
+using Godot.Collections;
 
-public partial class DummyTest : Area2D
+public partial class DummyTest : Area2D, IInteractable
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		AreaEntered += (aera2D) => GD.Print("Touched");
-	}
+	[Export] Array<string> texts;
+
+
+
+	public void Interaction()
+    {
+		foreach (string text in texts)
+		{
+        	GD.Print(text);
+		}
+    }
 }

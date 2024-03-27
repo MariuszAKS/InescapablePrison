@@ -3,16 +3,24 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+	[Signal] public delegate void DirectionUpdateEventHandler(Vector2 direction);
+	[Signal] public delegate void InteractionEventHandler();
+
 	private float _runSpeed = 100.0f;
 	private float _walkSpeed = 50.0f;
 	private float _sneakSpeed = 20.0f;
+
+	private Vector2 _prevDirection = Vector2.Zero;
 
 
 
 	public override void _PhysicsProcess(double delta)
 	{
 		HandleMovement();
+		HandleInteraction();
 	}
+
+
 
 	private void HandleMovement()
 	{
@@ -21,5 +29,21 @@ public partial class Player : CharacterBody2D
 
 		Velocity = direction * speed;
 		MoveAndSlide();
+
+
+
+		if (direction != _prevDirection)
+		{
+			EmitSignal(SignalName.DirectionUpdate, direction);
+			_prevDirection = direction;
+		}
+	}
+
+	private void HandleInteraction()
+	{
+		if (Input.IsActionJustPressed("interact"))
+		{
+			EmitSignal(SignalName.Interaction);
+		}
 	}
 }

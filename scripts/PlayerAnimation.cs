@@ -5,36 +5,47 @@ public partial class PlayerAnimation : AnimatedSprite2D
 {
 	public override void _Ready()
 	{
+		(GetParent() as Player).DirectionUpdate += UpdateMovementAnimation;
 	}
 
 
 
-	public override void _Process(double delta)
+	private void HandleAnimations()
 	{
-		if (Input.IsActionPressed("move_down"))
+		// Here will be handling of animations when there will be more than movement
+		//MovementAnimation(direction);
+	}
+
+	private void UpdateMovementAnimation(Vector2 direction)
+	{
+		if (direction == Vector2.Zero)
 		{
-			this.Animation = "walk_down";
-			this.Play();
+			Stop();
+			Frame = 3;
+			return;
 		}
-		else if (Input.IsActionPressed("move_up"))
+
+		if (direction.X < 0)
 		{
-			this.Animation = "walk_up";
-			this.Play();
+			Animation = "walk_left";
 		}
-		else if (Input.IsActionPressed("move_left"))
+		else if (direction.X > 0)
 		{
-			this.Animation = "walk_left";
-			this.Play();
+			Animation = "walk_right";
 		}
-		else if (Input.IsActionPressed("move_right"))
+		else if (direction.Y < 0)
 		{
-			this.Animation = "walk_right";
-			this.Play();
+			Animation = "walk_up";
 		}
-		else
+		else if (direction.Y > 0)
 		{
-			this.Stop();
-			this.Frame = 3;
+			Animation = "walk_down";
 		}
+
+		if (IsPlaying())
+		{
+			return;
+		}
+		Play();
 	}
 }

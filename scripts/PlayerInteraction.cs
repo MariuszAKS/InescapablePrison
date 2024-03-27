@@ -1,24 +1,35 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class PlayerInteraction : Area2D
+public partial class PlayerInteraction : RayCast2D
 {
-	CollisionShape2D _collision;
+	private int _lengthInPixels = 16;
+
 
 
 	public override void _Ready()
 	{
-		_collision = GetChild(0) as CollisionShape2D;
-
-		//AreaEntered += (area) => 
+		Player player = GetParent() as Player;
+		player.DirectionUpdate += UpdateRayDirection;
+		player.Interaction += HandleInteraction;
 	}
 
-	public override void _Process(double delta)
+
+
+	private void HandleInteraction()
 	{
-		if (Input.IsActionJustPressed("interact"))
+		if (IsColliding())
 		{
-			_collision.SetDeferred("Disabled", true);
-			_collision.SetDeferred("Disabled", false);
+			(GetCollider() as IInteractable)?.Interaction();
+		}
+	}
+
+	private void UpdateRayDirection(Vector2 direction)
+	{
+		if (direction != Vector2.Zero)
+		{
+			TargetPosition = direction * _lengthInPixels;
 		}
 	}
 }
