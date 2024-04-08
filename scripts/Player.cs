@@ -3,6 +3,7 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+	[Signal] public delegate void AllowMovementEventHandler(bool value);
 	[Signal] public delegate void DirectionUpdateEventHandler(Vector2 direction);
 	[Signal] public delegate void InteractionEventHandler();
 
@@ -12,12 +13,20 @@ public partial class Player : CharacterBody2D
 
 	private Vector2 _prevDirection = Vector2.Zero;
 
+	bool _canMove = true;
+
 
 
 	public override void _PhysicsProcess(double delta)
 	{
-		HandleMovement();
-		HandleInteraction();
+		if (_canMove)
+		{
+			HandleMovement();
+			HandleInteraction();
+			return;
+		}
+
+		HandleReading();
 	}
 
 
@@ -44,6 +53,14 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("interact"))
 		{
 			EmitSignal(SignalName.Interaction);
+		}
+	}
+
+	private void HandleReading()
+	{
+		if (Input.IsActionJustPressed("interact"))
+		{
+			EmitSignal(UI.SignalName.SwitchToNextText);
 		}
 	}
 }
