@@ -5,7 +5,8 @@ public partial class PlayerAnimation : AnimatedSprite2D
 {
 	public override void _Ready()
 	{
-		(GetParent() as Player).DirectionUpdate += UpdateMovementAnimation;
+		Player player = GetParent() as Player;
+		player.DirectionChanged += UpdateMovementAnimation;
 	}
 
 

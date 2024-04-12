@@ -4,38 +4,48 @@ using System;
 
 public partial class UI : Control
 {
-	[Signal] public delegate void StartReadingTextEventHandler(Array<string> textArray);
-    [Signal] public delegate void SwitchToNextTextEventHandler();
-    [Signal] public delegate void EndedReadingTextEventHandler();
-
-	[Export] private Label _bottomTextBox;
-	private Array<string> _textToDisplay;
-	private int _nextText;
+	[Export] private PanelContainer _bottomDialogPanel;
+	[Export] private Label _bottomDialogLabel;
+	private Array<string> _lines;
+	private int _lineId;
 
 
 
 	public override void _Ready()
 	{
-		StartReadingText += LoadTextsToDisplay;
-		SwitchToNextText += UpdateBottomTextBox;
+		SignalBus.Instance.UI_DialogPassTexts += DialogLoadLines;
+		SignalBus.Instance.UI_DialogNext += DialogNextLine;
+		SignalBus.Instance.UI_DialogFinish += DialogFinish;
+
+		DialogFinish();
 	}
 
 
 
-	private void LoadTextsToDisplay(Array<string> textArray)
+	private void DialogLoadLines(Array<string> lines)
 	{
-		_textToDisplay = textArray;
-		_nextText = 0;
+		_bottomDialogPanel.Visible = true;
+		_lines = lines;
+		_lineId = 0;
 
-		UpdateBottomTextBox();
+		DialogNextLine();
 	}
 
-	private void UpdateBottomTextBox()
+	private void DialogNextLine()
 	{
-		if (_nextText == _bottomTextBox.Size[0])
+		if (_lineId >= _lines.Count)
 		{
-			EmitSignal(SignalName.EndedReadingText);
+			SignalBus.Instance.EmitSignal(SignalBus.SignalName.UI_DialogFinish);
 		}
-		_bottomTextBox.Text = _textToDisplay[_nextText++];
+		else
+		{
+			_bottomDialogLabel.Text = _lines[_lineId++];
+		}
+	}
+
+	private void DialogFinish()
+	{
+		_bottomDialogLabel.Text = "";
+		_bottomDialogPanel.Visible = false;
 	}
 }

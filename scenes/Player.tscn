@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dtukb6dxa28vl"]
+[gd_scene load_steps=22 format=3 uid="uid://dtukb6dxa28vl"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_rl817"]
+[ext_resource type="PackedScene" uid="uid://cd8bdqvi2m5os" path="res://scenes/UI.tscn" id="2_h3cgt"]
 [ext_resource type="Texture2D" uid="uid://cjyly2pck52gm" path="res://art/player.png" id="2_jkdft"]
 [ext_resource type="Script" path="res://scripts/PlayerAnimation.cs" id="3_atui6"]
 [ext_resource type="Script" path="res://scripts/PlayerInteraction.cs" id="3_lwads"]
@@ -141,7 +142,7 @@ script = ExtResource("1_rl817")
 zoom = Vector2(3, 3)
 
 [node name="MovementCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 12)
+position = Vector2(0, 13)
 shape = SubResource("CapsuleShape2D_nna8h")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
@@ -150,15 +151,18 @@ animation = &"walk_down"
 script = ExtResource("3_atui6")
 
 [node name="Interaction" type="RayCast2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, 13)
 target_position = Vector2(0, 16)
-collision_mask = 32
+collision_mask = 128
 collide_with_areas = true
 script = ExtResource("3_lwads")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -1)
 scale = Vector2(3.2, 1.8)
-energy = 0.8
+energy = 0.5
 shadow_enabled = true
 texture = ExtResource("5_677ba")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("2_h3cgt")]
