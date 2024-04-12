@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 public enum PlayerState {
-	Immovable, Movable, Reading, Hiding
+	Immovable, Movable, Reading, StartHiding, Hiding
 }
 
 public partial class Player : CharacterBody2D
@@ -10,6 +10,7 @@ public partial class Player : CharacterBody2D
 	[Signal] public delegate void DirectionChangedEventHandler(Vector2 direction);
 	[Signal] public delegate void TriedToInteractEventHandler();
 	[Signal] public delegate void PassNewStateEventHandler(PlayerState state);
+	[Signal] public delegate void GotOutOfHidingEventHandler();
 
 	private float _runSpeed = 100.0f;
 	private float _walkSpeed = 50.0f;
@@ -37,6 +38,9 @@ public partial class Player : CharacterBody2D
 			} break;
 			case PlayerState.Reading: {
 				HandleStateReading();
+			} break;
+			case PlayerState.StartHiding: {
+				HandleStateStartHiding();
 			} break;
 			case PlayerState.Hiding: {
 				HandleStateHiding();
@@ -70,8 +74,19 @@ public partial class Player : CharacterBody2D
 			SignalBus.Instance.EmitSignal(SignalBus.SignalName.UI_DialogFinish);
 	}
 
+	private void HandleStateStartHiding()
+	{
+		Visible = false;
+		_state = PlayerState.Hiding;
+	}
+
 	private void HandleStateHiding()
 	{
-		//
+		if (Input.IsActionJustPressed("interact"))
+		{
+			_state = PlayerState.Movable;
+			EmitSignal(SignalName.GotOutOfHiding);
+			Visible = true;
+		}
 	}
 }

@@ -1,12 +1,11 @@
-[gd_scene load_steps=62 format=3 uid="uid://dme6d1x2gsmi5"]
+[gd_scene load_steps=60 format=3 uid="uid://dme6d1x2gsmi5"]
 
 [ext_resource type="Texture2D" uid="uid://0fxssyxcc5r3" path="res://art/tileset_prison_corridors.png" id="1_2gk2a"]
 [ext_resource type="Texture2D" uid="uid://3kxcu2tsqegv" path="res://art/tileset_prison_bars.png" id="2_5myjt"]
 [ext_resource type="PackedScene" uid="uid://dtukb6dxa28vl" path="res://scenes/Player.tscn" id="2_5nvvu"]
 [ext_resource type="Texture2D" uid="uid://bjtbi85wop5t5" path="res://art/tileset_prison_floor.png" id="3_x7t28"]
-[ext_resource type="PackedScene" uid="uid://b0lil4ja86exq" path="res://scenes/poster.tscn" id="5_5khoh"]
-[ext_resource type="Script" path="res://scripts/Hideable.cs" id="6_ugg25"]
-[ext_resource type="Texture2D" uid="uid://c4bgsryjr2isi" path="res://art/bed.png" id="8_2afcp"]
+[ext_resource type="PackedScene" uid="uid://b0lil4ja86exq" path="res://scenes/Poster.tscn" id="5_5khoh"]
+[ext_resource type="PackedScene" uid="uid://cdti3qooufylk" path="res://scenes/Bed.tscn" id="6_c263m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4drsl"]
 texture = ExtResource("3_x7t28")
@@ -728,9 +727,6 @@ sources/0 = SubResource("TileSetAtlasSource_vor55")
 sources/2 = SubResource("TileSetAtlasSource_7r8hh")
 sources/3 = SubResource("TileSetAtlasSource_y0kxi")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m7qk"]
-size = Vector2(32, 12)
-
 [node name="GameScene" type="Node2D"]
 y_sort_enabled = true
 
@@ -761,16 +757,4 @@ position = Vector2(88, 48)
 collision_layer = 128
 _lines = Array[String](["\"We'll plan your vacation for you\"", "- SomeVacationAgency"])
 
-[node name="Bed" type="StaticBody2D" parent="."]
-position = Vector2(48, 60)
-collision_layer = 144
-collision_mask = 0
-script = ExtResource("6_ugg25")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed"]
-position = Vector2(0, 10)
-shape = SubResource("RectangleShape2D_0m7qk")
-
-[node name="Sprite2D" type="Sprite2D" parent="Bed"]
-texture = ExtResource("8_2afcp")
+[node name="Bed" parent="." instance=ExtResource("6_c263m")]

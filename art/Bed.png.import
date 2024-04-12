@@ -16,7 +16,7 @@ dest_files=["res://.godot/imported/bed.png-cf6b71baf861502d83a71d63295aa643.ctex
 [params]
 
 compress/mode=0
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

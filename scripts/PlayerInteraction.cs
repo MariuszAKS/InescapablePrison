@@ -10,6 +10,8 @@ public partial class PlayerInteraction : RayCast2D
 	private bool _isReading = false;
 	private bool _isHiding = false;
 
+	private Hideable _hidingPlace;
+
 
 
 	public override void _Ready()
@@ -17,6 +19,7 @@ public partial class PlayerInteraction : RayCast2D
 		player = GetParent() as Player;
 		player.DirectionChanged += UpdateRayDirection;
 		player.TriedToInteract += Interaction;
+		player.GotOutOfHiding += LeaveHidingPlace;
 	}
 
 
@@ -35,8 +38,9 @@ public partial class PlayerInteraction : RayCast2D
 		}
 		else if (collider is Hideable)
 		{
-			playerState = PlayerState.Hiding;
-			(collider as Hideable).HideIn();
+			playerState = PlayerState.StartHiding;
+			_hidingPlace = collider as Hideable;
+			_hidingPlace.Enter();
 		}
 		else playerState = PlayerState.Movable;
 
@@ -49,5 +53,11 @@ public partial class PlayerInteraction : RayCast2D
 		{
 			TargetPosition = direction * _lengthInPixels;
 		}
+	}
+
+	private void LeaveHidingPlace()
+	{
+		_hidingPlace.Leave();
+		_hidingPlace = null;
 	}
 }
