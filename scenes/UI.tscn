@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd8bdqvi2m5os"]
+
+[ext_resource type="Script" path="res://scripts/UI.cs" id="1_o7u48"]
+[ext_resource type="Texture2D" uid="uid://0v72x2y6ynfn" path="res://art/ui_frame.png" id="2_jgi0f"]
+[ext_resource type="Texture2D" uid="uid://bbauabo4q4nsv" path="res://art/ui_bottom_text_panel.png" id="3_p40mg"]
+[ext_resource type="Texture2D" uid="uid://c2fuhqx6wnds1" path="res://art/ui_bottom_keys_icon.png" id="4_qbfd6"]
+
+[node name="UI" type="Control" node_paths=PackedStringArray("_bottomDialogPanel", "_bottomDialogLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o7u48")
+_bottomDialogPanel = NodePath("MarginContainer/BottomDialogPanel")
+_bottomDialogLabel = NodePath("MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer/CenterContainer/MarginContainer/BottomDialogLabel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jgi0f")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="BottomDialogPanel" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Background" type="NinePatchRect" parent="MarginContainer/BottomDialogPanel"]
+layout_mode = 2
+texture = ExtResource("3_p40mg")
+patch_margin_left = 27
+patch_margin_top = 27
+patch_margin_right = 27
+patch_margin_bottom = 27
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/BottomDialogPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/BottomDialogPanel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="KeysL" type="TextureRect" parent="MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_qbfd6")
+expand_mode = 2
+
+[node name="SpaceL" type="Control" parent="MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="BottomDialogLabel" type="Label" parent="MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="SpaceR" type="Control" parent="MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="KeysR" type="TextureRect" parent="MarginContainer/BottomDialogPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_qbfd6")
+expand_mode = 2
