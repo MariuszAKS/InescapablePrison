@@ -1,24 +1,26 @@
 using Godot;
 using System;
 
-public partial class PlayerAnimation : AnimatedSprite2D
+public partial class Animation : AnimatedSprite2D
 {
+	private CharacterBody2D _parent;
+	private Vector2 _prevDirection;
+
 	public override void _Ready()
 	{
-		Player player = GetParent() as Player;
-		player.DirectionChanged += UpdateMovementAnimation;
+		_parent = GetParent() as CharacterBody2D;
 	}
 
-
-
-	private void HandleAnimations()
+	public override void _Process(double delta)
 	{
-		// Here will be handling of animations when there will be more than movement
-		//MovementAnimation(direction);
-	}
+		Vector2 direction = _parent.Velocity;
 
-	private void UpdateMovementAnimation(Vector2 direction)
-	{
+		if (direction == _prevDirection)
+		{
+			return;
+		}
+		_prevDirection = direction;
+
 		if (direction == Vector2.Zero)
 		{
 			Stop();

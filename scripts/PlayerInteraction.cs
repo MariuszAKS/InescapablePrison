@@ -51,7 +51,8 @@ public partial class PlayerInteraction : RayCast2D
 	{
 		if (direction != Vector2.Zero)
 		{
-			TargetPosition = direction * _lengthInPixels;
+			//TargetPosition = direction * _lengthInPixels;
+			RotationDegrees = MathF.Atan2(direction.Y, direction.X) * 180 / MathF.PI;
 		}
 	}
 

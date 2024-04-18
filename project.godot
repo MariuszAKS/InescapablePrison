@@ -73,6 +73,7 @@ dialog_skip={
 [layer_names]
 
 2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemy"
 2d_physics/layer_5="Obstacle"
 2d_physics/layer_6="Layer 6"
 2d_physics/layer_7="Layer 7"

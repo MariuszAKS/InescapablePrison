@@ -11,14 +11,13 @@ public partial class Player : CharacterBody2D
 	[Signal] public delegate void TriedToInteractEventHandler();
 	[Signal] public delegate void PassNewStateEventHandler(PlayerState state);
 	[Signal] public delegate void GotOutOfHidingEventHandler();
+	
+	private PlayerState _state = PlayerState.Movable;
+	private Vector2 _prevDirection = Vector2.Zero;
 
 	private float _runSpeed = 100.0f;
 	private float _walkSpeed = 50.0f;
 	private float _sneakSpeed = 20.0f;
-
-	private Vector2 _prevDirection = Vector2.Zero;
-
-	private PlayerState _state = PlayerState.Movable;
 
 
 
@@ -48,6 +47,8 @@ public partial class Player : CharacterBody2D
 			default: {} break;
 		}
 	}
+
+	
 
 	private void HandleStateMovable()
 	{
